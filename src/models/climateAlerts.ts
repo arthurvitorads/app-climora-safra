@@ -1,0 +1,32 @@
+export const climateAlerts = [
+  {
+    property: "Sítio Boa Esperança",
+    event: "Estiagem",
+    culture: "feijão",
+    area: 3,
+    productivity: 1800,
+    unitPrice: 6,
+    cost: 13000,
+    lossPercent: 20,
+  },
+  {
+    property: "Fazenda Santa Clara",
+    event: "Excesso de chuva",
+    culture: "milho",
+    area: 10,
+    productivity: 6500,
+    unitPrice: 1.2,
+    cost: 44000,
+    lossPercent: 15,
+  },
+  {
+    property: "Sítio Vale Verde",
+    event: "Geada",
+    culture: "café",
+    area: 5,
+    productivity: 1500,
+    unitPrice: 22,
+    cost: 95000,
+    lossPercent: 25,
+  },
+];
