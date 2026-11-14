@@ -1,40 +1,43 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { TriangleAlert, X } from "lucide-vue-next";
-import { money } from "../../services/format";
-import { revenue } from "../../services/crop";
+import { computed } from 'vue'
+import { TriangleAlert, X } from 'lucide-vue-next'
+import { money } from '../../services/format'
+import { revenue } from '../../services/crop'
 
-import type { climateAlerts } from "../../models/climateAlerts";
+import type { climateAlerts } from '../../models/climateAlerts'
 
-const props = defineProps<{ activeAlerts: typeof climateAlerts }>();
-const emit = defineEmits<{ dismiss: [property: string] }>();
+const props = defineProps<{ activeAlerts: typeof climateAlerts }>()
+const emit = defineEmits<{ dismiss: [property: string] }>()
 
 const alerts = computed(() =>
   props.activeAlerts.map((alert) => {
-    const expectedRevenue = revenue(alert);
-    const lostRevenue = (expectedRevenue * alert.lossPercent) / 100;
-    const adjustedRevenue = expectedRevenue - lostRevenue;
+    const expectedRevenue = revenue(alert)
+    const lostRevenue = (expectedRevenue * alert.lossPercent) / 100
+    const adjustedRevenue = expectedRevenue - lostRevenue
+    const lossBasis = `${alert.lossPercent}% sobre a receita esperada de ${money(expectedRevenue)} = ${money(lostRevenue)} de perda de receita.`
     const impact = [
-      { label: "Lucro sem perdas", value: expectedRevenue - alert.cost },
-      { label: "Lucro após perdas", value: adjustedRevenue - alert.cost },
-      { label: "Redução estimada no lucro", value: lostRevenue },
-    ];
+      { label: 'Lucro sem perdas', value: expectedRevenue - alert.cost },
+      { label: 'Lucro após perdas', value: adjustedRevenue - alert.cost },
+      { label: 'Redução estimada no lucro', value: lostRevenue },
+    ]
     const message = [
       `Climora | ${alert.property}`,
       `${alert.event} no cultivo de ${alert.culture}. Perda estimada de ${alert.lossPercent}% da produção.`,
       ...impact.map((item) => `${item.label}: ${money(item.value)}`),
       `Receita esperada: ${money(expectedRevenue)}`,
       `Receita após perdas: ${money(adjustedRevenue)}`,
-    ].join("\n");
+      `Custo total: ${money(alert.cost)}`,
+      lossBasis,
+    ].join('\n')
     return {
       ...alert,
       impact,
-      whatsappUrl: "https://wa.me/?text=" + encodeURIComponent(message),
+      whatsappUrl: 'https://wa.me/?text=' + encodeURIComponent(message),
       expectedRevenue,
       adjustedRevenue,
-    };
+    }
   }),
-);
+)
 </script>
 
 <template>
@@ -94,18 +97,30 @@ const alerts = computed(() =>
       </p>
       <dl class="alert-impact">
         <div v-for="item in alert.impact" :key="item.label">
-          <dt>{{ item.label }}</dt>
+          <dt>
+            {{ item.label }}
+            <span
+              v-if="item.label === 'Redução estimada no lucro'"
+              class="loss-basis"
+            >
+              ({{ alert.lossPercent }}% sobre a receita esperada)
+            </span>
+          </dt>
           <dd>{{ money(item.value) }}</dd>
         </div>
       </dl>
       <div class="details">
         <div>
-          <small>Receita esperada</small
-          ><strong>{{ money(alert.expectedRevenue) }}</strong>
+          <small>Receita esperada</small>
+          <strong>{{ money(alert.expectedRevenue) }}</strong>
         </div>
         <div>
-          <small>Receita após perdas</small
-          ><strong>{{ money(alert.adjustedRevenue) }}</strong>
+          <small>Receita após perdas</small>
+          <strong>{{ money(alert.adjustedRevenue) }}</strong>
+        </div>
+        <div>
+          <small>Custo total</small>
+          <strong>{{ money(alert.cost) }}</strong>
         </div>
       </div>
     </article>
@@ -132,6 +147,15 @@ const alerts = computed(() =>
 }
 .climate-alert p {
   margin: 12px 0 20px;
+}
+.loss-basis {
+  display: block;
+  margin-top: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.details {
+  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
 }
 .alert-impact {
   display: grid;
