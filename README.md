@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Climora Agro
 
 MVP de gestão agrícola em **Vue 3 + TypeScript + Vite** inspirado na identidade visual enviada (verde `#496846`, bege `#F7EDE1` e logo planta/sol).
@@ -32,3 +33,7 @@ Abra o endereço mostrado pelo Vite (geralmente `http://localhost:5173`).
 5. Implementar custos detalhados, preços reais, intervalos de confiança, relatório e alerta climático.
 
 **Importante:** o MVP calcula lucro a partir de dados informados pelo usuário. Não realiza previsão de clima, detecção de doenças nem recomendações agronômicas automáticas.
+=======
+# app-climora-safra
+Repositório pessoal
+>>>>>>> 4d1c816db380e27a02c62afd1f377c5ddddcdba9
