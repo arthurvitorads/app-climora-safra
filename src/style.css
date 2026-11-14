@@ -657,19 +657,19 @@ strong {
   padding: 20px;
 }
 .modal-card {
-  width: min(590px, 100%);
-  max-height: min(92vh, 900px);
+  width: min(760px, 100%);
+  max-height: calc(100dvh - 20px);
   overflow: auto;
   border-radius: 17px;
   background: #fffdf9;
   box-shadow: 0 22px 70px #162a1a45;
-  padding: 28px;
+  padding: 20px;
 }
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: start;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
   gap: 14px;
 }
 .modal-header h2 {

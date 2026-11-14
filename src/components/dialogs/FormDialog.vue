@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { X } from "lucide-vue-next";
-defineProps<{ label: string; title: string; description: string }>();
-const emit = defineEmits<{ close: [] }>();
+import { X } from 'lucide-vue-next'
+defineProps<{ label: string; title: string; description?: string }>()
+const emit = defineEmits<{ close: [] }>()
 </script>
 
 <template>
@@ -9,9 +9,8 @@ const emit = defineEmits<{ close: [] }>();
     <div class="modal-card" role="dialog" aria-modal="true" :aria-label="label">
       <div class="modal-header">
         <div>
-          <div class="eyebrow">CLIMORA Safra</div>
           <h2>{{ title }}</h2>
-          <p>{{ description }}</p>
+          <p v-if="description">{{ description }}</p>
         </div>
         <button class="icon-button" aria-label="Fechar" @click="emit('close')">
           <X :size="21" />

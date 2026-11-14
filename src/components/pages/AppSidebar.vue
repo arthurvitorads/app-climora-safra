@@ -43,16 +43,6 @@ const navigations = [
         ><ChevronRight v-if="page === item.id" :size="16" class="push" />
       </button>
     </nav>
-    <div class="sidebar-bottom">
-      <div class="sidebar-hint">
-        <Leaf :size="19" />
-        <div>
-          <strong>Seu campo, mais preparado.</strong
-          ><span>Organize sua produção e acompanhe seus resultados.</span>
-        </div>
-      </div>
-      <small>CLIMORA Safra · MVP 0.1</small>
-    </div>
   </aside>
 </template>
 
